@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4a103f311aad14cb26ac1247093a40, type: 3}
+  m_Name: Ceramic
+  m_EditorClassIdentifier: Assembly-CSharp::FloorSoundsPack
+  footsteps: {fileID: 6418180475301049370, guid: 06783524d9b62d241899d7117c05eefb, type: 2}
+  jump: {fileID: 6418180475301049370, guid: 9dc0325ec625c7b4bac3948842b4d069, type: 2}
+  landing: {fileID: 6418180475301049370, guid: d0f2367fbf2ba424f8e6e70766656f72, type: 2}

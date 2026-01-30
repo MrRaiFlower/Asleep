@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7594756242111958784
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -9045384527126865705, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9045384527126865705, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 046bf0b7926ec0846a20358d09b99e23, type: 2}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7946664259137595281, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7946664259137595281, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 046bf0b7926ec0846a20358d09b99e23, type: 2}
+    - target: {fileID: 919132149155446097, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_Name
+      value: Clock
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646733720424155422, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646733720424155422, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e82746092029c143966b43854fecbf0, type: 2}
+    - target: {fileID: 4556533453016587443, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556533453016587443, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 046bf0b7926ec0846a20358d09b99e23, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8806371653955777289}
+  m_SourcePrefab: {fileID: 100100000, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+--- !u!1 &3308078387174056899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4283669452804084541, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+  m_PrefabInstance: {fileID: 7594756242111958784}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3470207747075782190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2788474602924197586, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+  m_PrefabInstance: {fileID: 7594756242111958784}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7324145203110916689 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 330fea7c4ec388543b3d20fa6d3bd294, type: 3}
+  m_PrefabInstance: {fileID: 7594756242111958784}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8806371653955777289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7324145203110916689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ea3a154d2cbea4e8a38d2ef966b2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clock
+  minuteArrow: {fileID: 3308078387174056899}
+  hourArrow: {fileID: 3470207747075782190}

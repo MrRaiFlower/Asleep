@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-9157228493879988532
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_07_{-9157228493879988532}
+  m_AudioClip: {fileID: 8300000, guid: d044e54b1da45ec4f932ab1806acbf91, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-7989162426774245138
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_05_{-7989162426774245138}
+  m_AudioClip: {fileID: 8300000, guid: 58b4de08d2ea31344a0802190d00f584, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-4631699155597166229
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_08_{-4631699155597166229}
+  m_AudioClip: {fileID: 8300000, guid: f4c1d96446802ca4d877751aa1af6aa7, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-1228385516949529671
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_02_{-1228385516949529671}
+  m_AudioClip: {fileID: 8300000, guid: 2933d549c30d13247a4b78be186483cc, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &2166878098493185202
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_04_{2166878098493185202}
+  m_AudioClip: {fileID: 8300000, guid: 57b3a2f945614fa4fb1b42073593f9fb, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &4055941510471753354
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_01_{4055941510471753354}
+  m_AudioClip: {fileID: 8300000, guid: 55f56bc332d6f89479c2d24bf3055b15, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &5599556418544891455
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_03_{5599556418544891455}
+  m_AudioClip: {fileID: 8300000, guid: 935d7a33124fbd54f8fec2152f776b0b, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &6132811403259319564
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Footsteps_Tile_Walk_06_{6132811403259319564}
+  m_AudioClip: {fileID: 8300000, guid: a730838d90b0fa2489500824f515457c, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ceramic Walk
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: 0, y: 0}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: -4631699155597166229}
+  - {fileID: -9157228493879988532}
+  - {fileID: 6132811403259319564}
+  - {fileID: -7989162426774245138}
+  - {fileID: 2166878098493185202}
+  - {fileID: 5599556418544891455}
+  - {fileID: -1228385516949529671}
+  - {fileID: 4055941510471753354}
+  m_AvoidRepeatingLast: 0
+  m_PlaybackMode: 2
+  m_TriggerMode: 0
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 0
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0

@@ -7,7 +7,11 @@ public class PickUpObject : MonoBehaviour
 {
     [SerializeField] AudioSource pickUpSound;
 
+    [SerializeField] private bool hasSpot;
+
     private bool pickedUp;
+
+    protected ItemSpot spot;
 
     public void PickUp(Action onPickupAction, List<GameObject> model)
     {
@@ -19,17 +23,19 @@ public class PickUpObject : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.Pause();
 
-        sequence.AppendCallback(() => {
-            pickedUp = true; 
+        sequence.AppendCallback(() =>
+        {
+            pickedUp = true;
             pickUpSound.Play();
-            foreach(GameObject mesh in model)
+            foreach (GameObject mesh in model)
             {
                 mesh.SetActive(false);
             }
+            onPickupAction.Invoke();
         });
-        
+
         sequence.AppendInterval(pickUpSound.clip.length);
-        sequence.AppendCallback(() => {Destroy(gameObject); onPickupAction.Invoke();});
+        sequence.AppendCallback(() => { Destroy(gameObject); if (hasSpot) { spot.IsFree = true; } });
 
         sequence.Play();
     }
@@ -44,5 +50,10 @@ public class PickUpObject : MonoBehaviour
         }
 
         return result;
+    }
+
+    protected void SetUpSpot()
+    {
+        spot = GetComponentInParent<ItemSpot>();
     }
 }

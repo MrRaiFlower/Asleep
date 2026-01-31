@@ -183,13 +183,13 @@ PrefabInstance:
       addedObject: {fileID: 3703021050928321269}
     - targetCorrespondingSourceObject: {fileID: 5654704721766568857, guid: df0b2444e18151f41840d13486e58a0a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7214185115857557570}
+      addedObject: {fileID: 8659921424782332918}
     - targetCorrespondingSourceObject: {fileID: -6990213397106004223, guid: df0b2444e18151f41840d13486e58a0a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1979182676065037023}
     - targetCorrespondingSourceObject: {fileID: -6990213397106004223, guid: df0b2444e18151f41840d13486e58a0a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4752537280919399060}
+      addedObject: {fileID: 5876877777629907964}
   m_SourcePrefab: {fileID: 100100000, guid: df0b2444e18151f41840d13486e58a0a, type: 3}
 --- !u!1 &641048109710138847 stripped
 GameObject:
@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrakerSwitch
   isOn: 0
+  isSwitching: 0
   clickSound: {fileID: 272232552080025581}
 --- !u!65 &2673142569837586514
 BoxCollider:
@@ -229,8 +230,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 1.299646, z: 6.5614343}
-  m_Center: {x: -0.00000014901161, y: 0.3577168, z: 0.023005903}
+  m_Size: {x: 2.3444567, y: 1.8118378, z: 4.9236717}
+  m_Center: {x: 0, y: -0.5319101, z: 0.049106475}
 --- !u!1 &664078896057125274 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7638104345217537351, guid: df0b2444e18151f41840d13486e58a0a, type: 3}
@@ -271,8 +272,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreakerBoxCap
   switchesColliders:
   - {fileID: 2673142569837586514}
-  - {fileID: 7214185115857557570}
-  - {fileID: 4752537280919399060}
+  - {fileID: 8659921424782332918}
+  - {fileID: 5876877777629907964}
   clickSound: {fileID: 6612575910885055584}
 --- !u!82 &6612575910885055584
 AudioSource:
@@ -389,8 +390,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrakerSwitch
   isOn: 0
+  isSwitching: 0
   clickSound: {fileID: 272232552080025581}
---- !u!65 &7214185115857557570
+--- !u!65 &8659921424782332918
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -409,8 +411,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 1.299646, z: 6.5614343}
-  m_Center: {x: -0.00000014901161, y: 0.3577168, z: 0.0230059}
+  m_Size: {x: 2.3444567, y: 1.8118378, z: 4.9236717}
+  m_Center: {x: 0, y: -0.5319101, z: 0.049106475}
 --- !u!1 &7784998088670945676 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df0b2444e18151f41840d13486e58a0a, type: 3}
@@ -531,8 +533,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrakerSwitch
   isOn: 0
+  isSwitching: 0
   clickSound: {fileID: 272232552080025581}
---- !u!65 &4752537280919399060
+--- !u!65 &5876877777629907964
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -551,5 +554,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 1.2996455, z: 6.5614343}
-  m_Center: {x: -0.00000014901161, y: 0.3577168, z: 0.0230059}
+  m_Size: {x: 2.3444567, y: 1.8118378, z: 4.9236717}
+  m_Center: {x: 0, y: -0.5319101, z: 0.049106475}

@@ -1,26 +1,35 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class PowerSystem : MonoBehaviour
 {
+    public static PowerSystem Instance;
+
     public static event Action OnStateChange;
 
     [SerializeField] private BreakerSwitch[] switches;
 
     [SerializeField] private float maxPower;
+    [SerializeField] private float powerFailureDecrement;
+    [SerializeField] private float maxPowerFailure;
 
-    private float power;
-
+    [HideInInspector] public float power;
+    [HideInInspector] public float drain;
     [HideInInspector] public bool hasPower;
 
     [HideInInspector] public float powerFailure;
 
-    [HideInInspector] public float drain;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         power = maxPower;
         hasPower = true;
+
         powerFailure = 1.0f;
     }
 
@@ -87,11 +96,11 @@ public class PowerSystem : MonoBehaviour
             }
         }
 
+        if (powerFailure > maxPowerFailure)
+        {
+            powerFailure -= powerFailureDecrement;
+            powerFailure = Mathf.Clamp(powerFailure, maxPowerFailure, 1f);
+        }
         power = maxPower * powerFailure;
-    }
-
-    private void PowerOn()
-    {
-        
     }
 }

@@ -9967,6 +9967,7 @@ MonoBehaviour:
   direction: -1
   hasAnimatedHandle: 0
   openingSpeed: 0.5
+  isOpen: 0
 --- !u!82 &4062490759639802507
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10365,7 +10366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisturbanceObject
   switchObject: {fileID: 546878205272446832}
-  disturbanceRate: 1
+  disturbanceRate: 2
   isActive: 0
 --- !u!4 &7602563042750709263 stripped
 Transform:
@@ -10416,6 +10417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowerCabin
   isOn: 0
+  isSwitching: 0
   showerParticles: {fileID: 2338334596634346086}
   splahesParticles: {fileID: 7760146868288414046}
   handleObject: {fileID: 8550580434298605050}

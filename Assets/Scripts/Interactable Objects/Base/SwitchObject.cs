@@ -6,7 +6,7 @@ public class SwitchObject : MonoBehaviour
     public event Action OnSwitch;
 
     [HideInInspector] public bool isOn;
-    protected bool isSwitching;
+    [HideInInspector] public bool isSwitching;
 
     protected Action turnOnAction;
     protected Action turnOffAction;

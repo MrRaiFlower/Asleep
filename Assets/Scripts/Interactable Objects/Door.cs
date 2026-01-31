@@ -14,7 +14,7 @@ public class Door : MonoBehaviour, InteractableObject
     [SerializeField] public bool hasAnimatedHandle;
     [SerializeField] public float openingSpeed;
     
-    private bool isOpen;
+    [HideInInspector] public bool isOpen;
 
     private bool isActing;
 
@@ -34,6 +34,8 @@ public class Door : MonoBehaviour, InteractableObject
             handleDefaultRotation = handle.transform.localRotation.eulerAngles;
             handlePressedRotation = handleDefaultRotation + Vector3.up * 45f;
         }
+
+        SanitySystem.Instance.doors.Add(this);
     }
 
     public void Interact()

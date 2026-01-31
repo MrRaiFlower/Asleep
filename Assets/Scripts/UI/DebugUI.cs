@@ -153,12 +153,12 @@ public class DebugUI : MonoBehaviour
         {
             // Sanity System
             text += GetHeader("Sanity System", "purple");
-            text += String.Format("Disturbance level: {0}/{1}\n", disturbanceLevel, disturbanceMaxLevel);
-            text += String.Format("Disturbance amplifier: {0}\n", actualDisturbanceAmplifier);
+            text += String.Format("Disturbance level: {0}%\n", disturbanceMaxLevel != 0f ? (int) (disturbanceLevel / disturbanceMaxLevel * 100f) : 0f);
+            // text += String.Format("Disturbance amplifier: {0}\n", actualDisturbanceAmplifier);
 
-            text += String.Format("Sanity: {0}/{1}\n", (int) sanity, (int) maxSanity);
+            text += String.Format("Sanity: {0}%\n", maxSanity != 0f ? (int) (sanity / maxSanity * 100f) : 0f);
             text += GetSanityDelta();
-            text += String.Format("Sanity effect: {0:F2}%\n", actualSanityAmplifier).Replace(',', '.');
+            text += String.Format("Sanity danger increment: +{0:F2}%\n", actualSanityAmplifier).Replace(',', '.');
 
             text += String.Format("Intruder active: {0}\n", isIntruderActive).Replace(',', '.');
             text += String.Format("Time till intruder: {0}\n", timeTillIntruder).Replace(',', '.');
@@ -189,20 +189,25 @@ public class DebugUI : MonoBehaviour
 
     private string GetSanityDelta()
     {
+        if (maxSanity == 0f)
+        {
+            return "";
+        }
+
         if (-actualSanityDropRate > 0)
         {
             if ((int) sanity == 100)
             {
-                return String.Format("Sanity delta: 0.0\n");
+                return String.Format("Sanity delta per second: 0.0\n");
             }
             else
             {
-                return String.Format("Sanity delta: {0:F2}", -actualSanityDropRate).Replace(',', '.').TrimEnd('0') + " (regen)\n";
+                return String.Format("Sanity delta per second: {0:F2}", -actualSanityDropRate * 100f / maxSanity).Replace(',', '.').TrimEnd('0') + "% (regen)\n";
             }
         }
         else
         {
-            return String.Format("Sanity delta: {0:F2}", actualSanityDropRate).Replace(',', '.').TrimEnd('0') + " (drain)\n";
+            return String.Format("Sanity delta per second: {0:F2}", actualSanityDropRate * 100f / maxSanity).Replace(',', '.').TrimEnd('0') + "% (drain)\n";
         }
     }
 }

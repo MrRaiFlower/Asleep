@@ -1,9 +1,10 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Window : DangerObject, InteractableObject
+public class EntranceDoor : DangerObject, InteractableObject
 {
-    [SerializeField] GameObject frame;
+    [SerializeField] GameObject lockObject;
+    [SerializeField] GameObject doorObject;
 
     private void Start()
     {
@@ -14,7 +15,7 @@ public class Window : DangerObject, InteractableObject
             Sequence sequence = DOTween.Sequence();
             sequence.Pause();
 
-            sequence.Append(gameObject.transform.DORotate(Vector3.down * 45f, 0.2f, RotateMode.LocalAxisAdd).SetEase(Ease.InExpo));
+            sequence.Append(lockObject.transform.DOLocalRotate(Vector3.up * 45f, 0.2f, RotateMode.LocalAxisAdd));
             sequence.AppendCallback(() => isSwitching = false);
 
             sequence.Play();
@@ -27,8 +28,8 @@ public class Window : DangerObject, InteractableObject
             Sequence sequence = DOTween.Sequence();
             sequence.Pause();
             
-            sequence.Append(gameObject.transform.DORotate(Vector3.down * 45f, 0.2f, RotateMode.LocalAxisAdd));
-            sequence.Append(frame.transform.DORotate(Vector3.forward * 5f, 0.2f, RotateMode.LocalAxisAdd));
+            sequence.Append(lockObject.transform.DOLocalRotate(Vector3.up * 45f, 0.2f, RotateMode.LocalAxisAdd));
+            sequence.Append(doorObject.transform.DOLocalRotate(Vector3.forward * 10f, 0.2f, RotateMode.LocalAxisAdd));
             sequence.AppendCallback(() => isSwitching = false);
             
             sequence.Play();
@@ -41,9 +42,9 @@ public class Window : DangerObject, InteractableObject
             Sequence sequence = DOTween.Sequence();
             sequence.Pause();
             
-            sequence.Append(frame.transform.DORotate(Vector3.back * 5f, 0.1f, RotateMode.LocalAxisAdd));
-            sequence.Append(gameObject.transform.DORotate(Vector3.up * 90f, 0.1f, RotateMode.LocalAxisAdd));
-            sequence.AppendCallback(() => {isSwitching = false;});
+            sequence.Append(doorObject.transform.DOLocalRotate(Vector3.back * 10f, 0.1f, RotateMode.LocalAxisAdd));
+            sequence.Append(lockObject.transform.DOLocalRotate(Vector3.down * 90f, 0.1f, RotateMode.LocalAxisAdd));
+            sequence.AppendCallback(() => isSwitching = false);
             
             sequence.Play();
         };
@@ -55,7 +56,7 @@ public class Window : DangerObject, InteractableObject
             Sequence sequence = DOTween.Sequence();
             sequence.Pause();
 
-            sequence.Append(gameObject.transform.DORotate(Vector3.up * 45f, 0.1f, RotateMode.LocalAxisAdd));
+            sequence.Append(lockObject.transform.DOLocalRotate(Vector3.down * 45f, 0.1f, RotateMode.LocalAxisAdd));
             sequence.AppendCallback(() => isSwitching = false);
 
             sequence.Play();

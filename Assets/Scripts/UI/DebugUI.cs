@@ -158,7 +158,7 @@ public class DebugUI : MonoBehaviour
 
             text += String.Format("Sanity: {0}/{1}\n", (int) sanity, (int) maxSanity);
             text += GetSanityDelta();
-            text += String.Format("Sanity amplifier: {0:F2}%\n", actualSanityAmplifier).Replace(',', '.');
+            text += String.Format("Sanity effect: {0:F2}%\n", actualSanityAmplifier).Replace(',', '.');
 
             text += String.Format("Intruder active: {0}\n", isIntruderActive).Replace(',', '.');
             text += String.Format("Time till intruder: {0}\n", timeTillIntruder).Replace(',', '.');

@@ -63,6 +63,7 @@ public class PowerSystem : MonoBehaviour
         DebugUI.instance.power = power;
         DebugUI.instance.maxPower = maxPower;
         DebugUI.instance.powerDrain = drain;
+        DebugUI.instance.powerFailure = powerFailure;
     }
 
     private void PowerOut()

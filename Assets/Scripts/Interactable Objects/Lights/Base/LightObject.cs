@@ -51,7 +51,8 @@ public class LightObject : SwitchObject
                 sequence.Join(emissives[i].material.DOFloat(emissionIntencity, "_Intensity", 0.05f));
             }
 
-            sequence.AppendCallback(() => {EndSwitchSequence(); roomSystem.SwitchLight(room, true);});
+            sequence.AppendCallback(() => roomSystem.SwitchLight(room, true));
+            EndSwitchSequence(sequence);
             
             sequence.Play();
         };
@@ -73,7 +74,8 @@ public class LightObject : SwitchObject
                 sequence.Join(emissives[i].material.DOFloat(0f, "_Intensity", 0.05f));
             }
 
-            sequence.AppendCallback(() => {EndSwitchSequence(); roomSystem.SwitchLight(room, false);});
+            sequence.AppendCallback(() => roomSystem.SwitchLight(room, false));
+            EndSwitchSequence(sequence);
             
             sequence.Play();
         };

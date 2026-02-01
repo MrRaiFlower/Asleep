@@ -39,6 +39,7 @@ public class DebugUI : MonoBehaviour
     [HideInInspector] public float power;
     [HideInInspector] public float maxPower;
     [HideInInspector] public float powerDrain;
+    [HideInInspector] public float powerFailure;
 
     // Room System
 
@@ -135,8 +136,9 @@ public class DebugUI : MonoBehaviour
         {
             // Power System
             text += GetHeader("Power System", "yellow");
-            text += String.Format("Power: {0}/{1}\n", (int) power, maxPower).Replace(',', '.');
-            text += String.Format("Power drain: {0:F2}\n", powerDrain).Replace(',', '.');
+            text += String.Format("Power: {0}%\n", (int) (power / maxPower * 100));
+            text += String.Format("Max power: {0}%\n", (int) (100 * powerFailure));
+            text += String.Format("Power drain per second: {0:F2}%\n", powerDrain / maxPower * 100f).Replace(',', '.');
             text += "\n";
         }        
 
@@ -161,7 +163,7 @@ public class DebugUI : MonoBehaviour
             text += String.Format("Sanity danger increment: +{0:F2}%\n", actualSanityAmplifier).Replace(',', '.');
 
             text += String.Format("Intruder active: {0}\n", isIntruderActive).Replace(',', '.');
-            text += String.Format("Time till intruder: {0}\n", timeTillIntruder).Replace(',', '.');
+            text += GetTimeTillIntruder();
 
             text += String.Format("Disturbance chance: {0:F2}%\n", actualDisturbanceChance).Replace(',', '.');
             text += String.Format("Can disturb: {0}\n", canDisturb);
@@ -202,12 +204,17 @@ public class DebugUI : MonoBehaviour
             }
             else
             {
-                return String.Format("Sanity delta per second: {0:F2}", -actualSanityDropRate * 100f / maxSanity).Replace(',', '.').TrimEnd('0') + "% (regen)\n";
+                return String.Format("Sanity delta per second: {0:F2}", -actualSanityDropRate * 100f / maxSanity).Replace(',', '.') + "% (regen)\n";
             }
         }
         else
         {
-            return String.Format("Sanity delta per second: {0:F2}", actualSanityDropRate * 100f / maxSanity).Replace(',', '.').TrimEnd('0') + "% (drain)\n";
+            return String.Format("Sanity delta per second: {0:F2}", actualSanityDropRate * 100f / maxSanity).Replace(',', '.') + "% (drain)\n";
         }
+    }
+
+    private string GetTimeTillIntruder()
+    {
+        return String.Format("Time till intruder: {0}\n", timeTillIntruder).Replace(',', '.');
     }
 }

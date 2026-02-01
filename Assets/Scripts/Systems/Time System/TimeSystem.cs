@@ -69,10 +69,21 @@ public class TimeSystem : MonoBehaviour
         DebugUI.instance.timeScale = scale.ToString();
 
         timeTillIntruderMinutes = ((int) (sanitySystem.intruderHour * 60)) - currentMinutes;
-        DebugUI.instance.timeTillIntruder = String.Format("{0:00}:{1:00}", 
-            timeTillIntruderMinutes / 60, 
-            timeTillIntruderMinutes % 60
-        );
+        if (timeTillIntruderMinutes >= 0)
+        {
+            DebugUI.instance.timeTillIntruder = String.Format("{0:00}:{1:00}", 
+                Mathf.Abs(timeTillIntruderMinutes / 60), 
+                Mathf.Abs(timeTillIntruderMinutes % 60)
+            );
+        }
+        else
+        {
+            DebugUI.instance.timeTillIntruder = String.Format("-{0:00}:{1:00}", 
+                Mathf.Abs(timeTillIntruderMinutes / 60), 
+                Mathf.Abs(timeTillIntruderMinutes % 60)
+            );
+        }
+        
     }
 
     public void SetSanityTickLenght(float t)

@@ -330,9 +330,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloorLampSwitch
   isOn: 0
+  isSwitching: 0
   lightObject: {fileID: 8955412137522814453}
   clickSound: {fileID: 4510473462848338808}
-  animationDuration: 0.2
+  animationDuration: 0.3
   yOffset: 0.035
 --- !u!136 &4002129338907718001
 CapsuleCollider:
@@ -477,6 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightObject
   isOn: 0
+  isSwitching: 0
   lights:
   - {fileID: 8563594096359395208}
   emissives:

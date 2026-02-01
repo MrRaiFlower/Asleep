@@ -14,7 +14,8 @@ public class ItemPile : PickUpObject, InteractableObject
 
     public void Interact()
     {
-        if (needsFlashlight && !GameObject.Find("Player").GetComponent<FlashlightControl>().isActive)
+        FlashlightControl flashlightControl = GameObject.Find("Player").GetComponent<FlashlightControl>();
+        if (needsFlashlight && (!flashlightControl.isActive || flashlightControl.maxCharge - flashlightControl.charge < flashlightControl.minRecharge))
         {
             return;
         }
@@ -22,6 +23,7 @@ public class ItemPile : PickUpObject, InteractableObject
         {
             return;
         }
+
         PickUp(() => OnPickUp.Invoke(), new List<GameObject>() { activeModel });
     }
 

@@ -9,18 +9,18 @@ public class FlashlightControl : MonoBehaviour
 
     [SerializeField] private AudioSource flashlightSound;
 
-    [SerializeField] private float maxCharge;
+    [SerializeField] public float maxCharge;
     [SerializeField] private float startCharge;
     [SerializeField] private float dischargeSpeed;
     [SerializeField] private float switchSpeed;
     [SerializeField] private float intensity;
 
-    [SerializeField] float minRecharge;
-    [SerializeField] float maxRecharge;
+    [SerializeField] public float minRecharge;
+    [SerializeField] public float maxRecharge;
 
     [HideInInspector] public bool isActive;
 
-    private float charge;
+    [HideInInspector] public float charge;
 
     private bool isOn;
     private bool isSwitching;

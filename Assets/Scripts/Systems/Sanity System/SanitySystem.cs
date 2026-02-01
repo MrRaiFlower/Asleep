@@ -281,12 +281,18 @@ public class SanitySystem : MonoBehaviour
 
     private void Intruder()
     {
-
+        IntruderController.Instance.Intrude();
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         Debug.Log("Game is over");
+    }
+
+    public void ReduceSanity(float s)
+    {
+        sanity -= s;
+        sanity = Mathf.Clamp(sanity, 0f, maxSanity);
     }
 
     private void UpdateDebugUI()

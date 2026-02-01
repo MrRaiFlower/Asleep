@@ -42,7 +42,7 @@ public class LightSwitchObject : SwitchObject, InteractableObject
             
             sequence.AppendCallback(() => switchOnAction());
             sequence.AppendInterval(switchDuration);
-            sequence.AppendCallback(() => EndSwitchSequence());
+            EndSwitchSequence(sequence);
             
             sequence.Play();
         };
@@ -54,7 +54,7 @@ public class LightSwitchObject : SwitchObject, InteractableObject
             
             sequence.AppendCallback(() => switchOffAction());
             sequence.AppendInterval(switchDuration);
-            sequence.AppendCallback(() => EndSwitchSequence());
+            EndSwitchSequence(sequence);
             
             sequence.Play();
         };

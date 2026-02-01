@@ -564,7 +564,7 @@ MonoBehaviour:
   staminaScript: {fileID: 141849764730766280}
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 68
+    m_Bits: 580
   normalSpeed: 4
   crouchSpeed: 2
   sprintSpeed: 6
@@ -974,6 +974,7 @@ MonoBehaviour:
   minRecharge: 30
   maxRecharge: 60
   isActive: 0
+  charge: 0
 --- !u!82 &2804761872046245338
 AudioSource:
   m_ObjectHideFlags: 0

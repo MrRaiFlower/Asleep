@@ -107,9 +107,9 @@ public class SanitySystem : MonoBehaviour
         actualDisturbanceAmplifier = 0;
         sanity = maxSanity;
 
-        DisturbTimer();
-        DangerTimer();
-        IntruderTimer();
+        Invoke(nameof(DisturbTimer), disturbCooldown);
+        Invoke(nameof(DangerTimer), dangerCooldown);
+        Invoke(nameof(IntruderTimer), intruderCooldown);
 
         OnDangerChange = () =>
         {

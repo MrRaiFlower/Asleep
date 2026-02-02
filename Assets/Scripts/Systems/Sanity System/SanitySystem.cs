@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class SanitySystem : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class SanitySystem : MonoBehaviour
     public static SanitySystem Instance;
 
     [SerializeField] public float sanityDropRate;
+    [Space(16)]
     [SerializeField] public float minPillRegen;
     [SerializeField] public float maxPillRegen;
     [Space(16)]
@@ -36,7 +36,8 @@ public class SanitySystem : MonoBehaviour
     [HideInInspector] public float sanity;
     private float sanityDelta;
 
-    private bool isIntruderActive;
+    [HideInInspector] public bool isIntruderActive;
+    [HideInInspector] public bool isIntruderCurrentlyActive;
 
     private float disturbInterval;
     private float dangerInterval;
@@ -82,13 +83,20 @@ public class SanitySystem : MonoBehaviour
             isIntruderActive = true;
         }
 
-        sanityDelta = -sanityDropRate * disturbLevel / disturbMaxLevel;
+        sanityDelta = -sanityDropRate * disturbLevel / disturbMaxLevel * Time.deltaTime;
         ChangeSanity(sanityDelta);
 
         timeTillDisturb = timeTillDisturb - Time.deltaTime >= 0f ? timeTillDisturb - Time.deltaTime : 0f;
         timeTillDanger = timeTillDanger - Time.deltaTime >= 0f ? timeTillDanger - Time.deltaTime : 0f;
         timeTillIntruder = timeTillIntruder - Time.deltaTime >= 0f ? timeTillIntruder - Time.deltaTime : 0f;
         timeTillGameOver = timeTillGameOver - Time.deltaTime >= 0f ? timeTillGameOver - Time.deltaTime : 0f;
+
+        DebugOverlay.Instance.sanity = sanity;
+
+        DebugOverlay.Instance.timeTillDisturb = timeTillDisturb;
+        DebugOverlay.Instance.timeTillDanger = timeTillDanger;
+        DebugOverlay.Instance.timeTillIntruder = timeTillIntruder;
+        DebugOverlay.Instance.timeTillGameOver = timeTillGameOver;
     }
 
     public IEnumerator Activate()
@@ -141,7 +149,9 @@ public class SanitySystem : MonoBehaviour
         yield return new WaitForSeconds(intruderInterval);
 
         intruders[UnityEngine.Random.Range(0, intruders.Count)].Activate();
+        isIntruderCurrentlyActive = true;
 
+        yield return new WaitUntil(() => !isIntruderCurrentlyActive);
         StartCoroutine(Intruder());
     }
 

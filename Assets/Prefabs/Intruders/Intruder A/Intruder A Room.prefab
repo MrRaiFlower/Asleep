@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IntruderBody
   _raycastOrigin: {fileID: 3463583823612393403}
   _playerCamera: {fileID: 0}
-  _lookAngletreshold: 30
+  _lookAngleTreshold: 60
 --- !u!1001 &7796964526414096070
 PrefabInstance:
   m_ObjectHideFlags: 0

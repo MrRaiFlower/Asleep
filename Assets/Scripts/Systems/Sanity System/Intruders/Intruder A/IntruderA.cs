@@ -27,17 +27,16 @@ public class IntruderA : MonoBehaviour, Intruder
 
     public void Activate()
     {
-        _location = _locations[Random.Range(0, _locations.Count)];
-        SpawnBody();
-
-        StartCoroutine(PhaseOne());
+        Fade.Instance.DoFade(() => StartCoroutine(PhaseOne()));
     }
 
     private IEnumerator PhaseOne()
     {
+        _location = _locations[Random.Range(0, _locations.Count)];
+        SpawnBody();
         LookDetectionBody body = _location.roomBody.GetComponent<LookDetectionBody>();
 
-        yield return new WaitUntil(() => body.IsSeen()); Debug.Log("Hide!");
+        yield return new WaitUntil(() => body.IsSeen());
 
         StartCoroutine(PhaseTwo());
     }
@@ -48,7 +47,7 @@ public class IntruderA : MonoBehaviour, Intruder
 
         if (IsPlayerHidden())
         {
-            StartCoroutine(PhaseThree()); Debug.Log("Silent!");
+            Fade.Instance.DoFade(() => StartCoroutine(PhaseThree()));
         }
         else
         {
@@ -58,7 +57,7 @@ public class IntruderA : MonoBehaviour, Intruder
 
     private IEnumerator PhaseThree()
     {
-        Fade.Instance.DoFade(MoveBody);
+        MoveBody();
 
         float t = 0;
         while (t < _phaseThreeTime)
@@ -73,12 +72,13 @@ public class IntruderA : MonoBehaviour, Intruder
             yield return null;
         }
 
-        Fade.Instance.DoFade(Leave); Debug.Log("Safe!");
+        Fade.Instance.DoFade(Leave);
     }
 
     private void Leave()
     {
         RemoveBody();
+        SanitySystem.Instance.isIntruderCurrentlyActive = false;
         SanitySystem.Instance.ChangeSanity(-Random.Range(_minSanityDrain, _maxSanityDrain));
     }
 

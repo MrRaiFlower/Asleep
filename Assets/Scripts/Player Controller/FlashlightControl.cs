@@ -4,6 +4,13 @@ using UnityEngine.InputSystem;
 
 public class FlashlightControl : MonoBehaviour
 {
+    public static FlashlightControl Instance;
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [SerializeField] private GameObject cameraObject;
     [SerializeField] private Light[] lights;
 
@@ -22,7 +29,7 @@ public class FlashlightControl : MonoBehaviour
 
     [HideInInspector] public float charge;
 
-    private bool isOn;
+    [HideInInspector] public bool isOn;
     private bool isSwitching;
 
     private InputAction flashlightAction;
@@ -74,6 +81,8 @@ public class FlashlightControl : MonoBehaviour
             flashlightSound.Play();
             isOn = !isOn;
         }
+
+        DebugOverlay.Instance.flashlightCharge = charge;
     }
 
     private void TurnOn()

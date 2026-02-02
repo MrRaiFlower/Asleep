@@ -5,7 +5,7 @@ public class LookDetectionBody : MonoBehaviour
     [SerializeField] private Transform _raycastOrigin;
     [SerializeField] private Transform _playerCamera;
     [Space(16)]
-    [SerializeField] private float _lookAngletreshold;
+    [SerializeField] private float _lookAngleTreshold;
 
     public bool IsSeen()
     {
@@ -16,7 +16,7 @@ public class LookDetectionBody : MonoBehaviour
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Intruder"))
             {
-                return Vector3.Angle(direction, _playerCamera.forward) < _lookAngletreshold;
+                return Vector3.Angle(direction, _playerCamera.forward) < _lookAngleTreshold;
             }
         }
 

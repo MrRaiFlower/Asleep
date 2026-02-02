@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,6 +22,9 @@ public class ItemSpawnSystem : MonoBehaviour
     private int _batteriesAmount;
     private int _pillsAmount;
 
+    private float _batteriesInterval;
+    private float _pillsInterval;
+
     private void Awake()
     {
         Instance = this;
@@ -28,21 +32,28 @@ public class ItemSpawnSystem : MonoBehaviour
 
     private void Start()
     {
-        TimeSystem.OnSanityTick += Tick;
+        StartCoroutine(SpawnBatteries());
+        StartCoroutine(SpawnPills());
     }
 
-    private void Tick()
+    private IEnumerator SpawnBatteries()
     {
-        float r = UnityEngine.Random.Range(0f, 100f);
+        _batteriesInterval = _batteriesParameters.timeInterval + Random.Range(-_batteriesParameters.dev, -_batteriesParameters.dev);
+        yield return new WaitForSeconds(_batteriesInterval);
 
-        if (r < _batteriesParameters.spawnChance && _batteriesAmount < _batteriesParameters.maxAmount)
-        {
-            TrySpawn(_batetriesPileSpots);
-        }
-        if (r < _pillsParameters.spawnChance && _pillsAmount < _pillsParameters.maxAmount)
-        {
-            TrySpawn(_pillsPileSpots);
-        }
+        TrySpawn(_batetriesPileSpots);
+
+        StartCoroutine(SpawnBatteries());
+    }
+
+    private IEnumerator SpawnPills()
+    {
+        _pillsInterval = _pillsParameters.timeInterval + Random.Range(-_pillsParameters.dev, -_pillsParameters.dev);
+        yield return new WaitForSeconds(_pillsInterval);
+
+        TrySpawn(_pillsPileSpots);
+
+        StartCoroutine(SpawnPills());
     }
 
     public void RegisterSpot(ItemSpot spot, SpotTypes spotType)

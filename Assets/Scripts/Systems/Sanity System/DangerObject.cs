@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class DangerObject : MonoBehaviour
 {
-    private SanitySystem sanitySystem;
-
     [HideInInspector] public int stage;
 
     protected Action Tr0to1;
@@ -17,8 +15,7 @@ public class DangerObject : MonoBehaviour
 
     protected void SetUp()
     {
-        sanitySystem = GameObject.Find("Sanity System").GetComponent<SanitySystem>();
-        sanitySystem.dangerObjects.Add(this);
+        SanitySystem.Instance.dangerObjects.Add(this);
     }
 
     public void IncreaseStage()
@@ -31,13 +28,15 @@ public class DangerObject : MonoBehaviour
         if (stage == 0)
         {
             stage += 1;
+            SanitySystem.Instance.dangerLevel += 0.1f;
+            SanitySystem.OnDangerChange.Invoke();
             Tr0to1.Invoke();
         }
         else if (stage == 1)
         {
             stage += 1;
-            sanitySystem.dangerLevel += 1f;
-            sanitySystem.OnDangerChange.Invoke();
+            SanitySystem.Instance.dangerLevel += 0.9f;
+            SanitySystem.OnDangerChange.Invoke();
             Tr1to2.Invoke();
         }
     }
@@ -52,13 +51,15 @@ public class DangerObject : MonoBehaviour
         if (stage == 2)
         {
             stage -= 2;
-            sanitySystem.dangerLevel -= 1f;
-            sanitySystem.OnDangerChange.Invoke();
+            SanitySystem.Instance.dangerLevel -= 0.9f;
+            SanitySystem.OnDangerChange.Invoke();
             Tr2to0.Invoke();
         }
         else if (stage == 1)
         {
             stage -= 1;
+            SanitySystem.Instance.dangerLevel -= 0.1f;
+            SanitySystem.OnDangerChange.Invoke();
             Tr1to0.Invoke();
         }
     }

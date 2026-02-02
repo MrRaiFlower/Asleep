@@ -1,7 +1,6 @@
-using NaughtyAttributes;
 using UnityEngine;
 
-public class IntruderBody : MonoBehaviour
+public class LookDetectionBody : MonoBehaviour
 {
     [SerializeField] private Transform _raycastOrigin;
     [SerializeField] private Transform _playerCamera;

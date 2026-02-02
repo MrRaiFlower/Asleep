@@ -4,5 +4,6 @@ using UnityEngine;
 public class ItemSpawnParameters : ScriptableObject
 {
     public int maxAmount;
-    public float spawnChance;
+    public float timeInterval;
+    public float dev;
 }

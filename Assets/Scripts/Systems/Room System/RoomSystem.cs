@@ -12,6 +12,13 @@ public class RoomSystem : MonoBehaviour
         Bathroom
     };
 
+    public static RoomSystem Instance;
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [HideInInspector] public Dictionary<roomsEnum, bool> rooms = new Dictionary<roomsEnum, bool>();
     [HideInInspector] public roomsEnum room;
 
@@ -25,12 +32,6 @@ public class RoomSystem : MonoBehaviour
             rooms.Add(roomName, false);
             lights.Add(roomName, 0);
         }
-    }
-
-    private void Update()
-    {
-        DebugUI.instance.room = room;
-        DebugUI.instance.isInLight = isInLight;
     }
 
     public void SwitchRoom(roomsEnum roomName, bool haveEntered)

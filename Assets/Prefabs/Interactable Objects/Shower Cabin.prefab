@@ -320,7 +320,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.025
+      scalar: 0.01
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5157,7 +5157,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.025
+      scalar: 0.01
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9957,12 +9957,41 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4229966363840674419, guid: ea8925140c526a747a2d2cb4b4c85069, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7392096009584716819}
+    - targetCorrespondingSourceObject: {fileID: -774073623374036205, guid: ea8925140c526a747a2d2cb4b4c85069, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2812589427124365558}
   m_SourcePrefab: {fileID: 100100000, guid: ea8925140c526a747a2d2cb4b4c85069, type: 3}
 --- !u!23 &970006897203780868 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7168934087616677088, guid: ea8925140c526a747a2d2cb4b4c85069, type: 3}
   m_PrefabInstance: {fileID: 7929435639858485732}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1966652020922047223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -774073623374036205, guid: ea8925140c526a747a2d2cb4b4c85069, type: 3}
+  m_PrefabInstance: {fileID: 7929435639858485732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2812589427124365558
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966652020922047223}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.32000008, y: 0.32000008, z: 0.023176586}
+  m_Center: {x: 0.00000017895863, y: -0.00000047640913, z: 0.0034117238}
 --- !u!1 &3003063380302270610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5162820104835090806, guid: ea8925140c526a747a2d2cb4b4c85069, type: 3}
@@ -10296,7 +10325,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 4a968cd8612f94849ba98243aeb0c426, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
@@ -10434,7 +10463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisturbanceObject
   switchObject: {fileID: 546878205272446832}
-  disturbanceRate: 2
+  disturbRate: 2
   isActive: 0
 --- !u!4 &7602563042750709263 stripped
 Transform:

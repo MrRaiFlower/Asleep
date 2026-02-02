@@ -58,8 +58,6 @@ public class LightSwitchObject : SwitchObject, InteractableObject
             
             sequence.Play();
         };
-        
-        SanitySystem.Instance.lights.Add(this);
     }
 
     public void Refresh()

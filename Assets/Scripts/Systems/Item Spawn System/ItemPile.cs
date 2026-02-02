@@ -19,7 +19,7 @@ public class ItemPile : PickUpObject, InteractableObject
         {
             return;
         }
-        if (needsUnfulSanity && SanitySystem.Instance.sanity >= SanitySystem.Instance.maxSanity - SanitySystem.Instance.minPillRegen)
+        if (needsUnfulSanity && SanitySystem.Instance.sanity >= 100f - SanitySystem.Instance.minPillRegen)
         {
             return;
         }

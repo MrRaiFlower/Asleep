@@ -564,7 +564,7 @@ MonoBehaviour:
   staminaScript: {fileID: 141849764730766280}
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 580
+    m_Bits: 836
   normalSpeed: 4
   crouchSpeed: 2
   sprintSpeed: 6
@@ -945,7 +945,7 @@ MonoBehaviour:
   playerSoundScript: {fileID: 9004797963437466575}
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 68
+    m_Bits: 324
   depth: 0.03
   speed: 0.5
 --- !u!114 &3582387490622168689
@@ -967,11 +967,11 @@ MonoBehaviour:
   - {fileID: 2158751985775074568}
   flashlightSound: {fileID: 2804761872046245338}
   maxCharge: 100
-  startCharge: 40
+  startCharge: 60
   dischargeSpeed: 1
   switchSpeed: 0.2
   intensity: 1
-  minRecharge: 30
+  minRecharge: 40
   maxRecharge: 60
   isActive: 0
   charge: 0
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   characterControllerComponent: {fileID: 8145079545638784899}
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 196
+    m_Bits: 452
   range: 1.35
 --- !u!1 &8136885300077075098
 GameObject:

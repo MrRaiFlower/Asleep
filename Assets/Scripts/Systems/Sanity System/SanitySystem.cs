@@ -1,86 +1,54 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework.Internal;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SanitySystem : MonoBehaviour
 {
+    public static Action OnDangerChange;
+
     public static SanitySystem Instance;
 
-    [SerializeField] public float sanityTickLenght;
-    [Space(8)]
-    [SerializeField] public float startDisturbanceChance;
-    [SerializeField] public float endDisturbanceChance;
-    [Space(8)]
-    [SerializeField] public float lightSanityDecrement;
-    [SerializeField] public float doorSanityDecrement;
-    [Space(8)]
-    [SerializeField] public float usualDisturbanceWeight;
-    [SerializeField] public float lightDisturbanceWeight;
-    [SerializeField] public float doorDisturbanceWeight;
-    [Space(8)]
-    [SerializeField] public float maxSanity;
     [SerializeField] public float sanityDropRate;
-    [SerializeField] public float sanityAmplifier;
-    [SerializeField] public float sanityDropInDark;
-    [SerializeField] public float sanityRegenInLight;
-    [Space(8)]
     [SerializeField] public float minPillRegen;
     [SerializeField] public float maxPillRegen;
-    [Space(8)]
-    [SerializeField] public float startDangerChance;
-    [SerializeField] public float endDangerChance;
-    [Space(8)]
-    [SerializeField] public float startIntruderChance;
-    [SerializeField] public float endIntruderChance;
-    [Space(8)]
+    [Space(16)]
     [SerializeField] public float intruderHour;
-    [Space(8)]
-    [SerializeField] public float gameOverChance;
-    [SerializeField] public float gameOverTimer;
-    [Space(8)]
-    [SerializeField] public float disturbCooldown;
-    [SerializeField] public float dangerCooldown;
-    [SerializeField] public float intruderCooldown;
+    [Space(16)]
+    [SerializeField] public float dangerTreshold;
+    [Space(16)]
+    [SerializeField] public SanityEventParameters disturbParameters;
+    [SerializeField] public SanityEventParameters dangerParameters;
+    [SerializeField] public SanityEventParameters intruderParameters;
+    [SerializeField] public SanityEventParameters gameOverParameters;
 
-    [HideInInspector] public List<DisturbanceObject> disturbanceObjects = new List<DisturbanceObject>();
-
-    [HideInInspector] public List<LightSwitchObject> lights = new List<LightSwitchObject>();
-    [HideInInspector] public List<Door> doors = new List<Door>();
+    [HideInInspector] public List<DisturbObject> disturbObjects = new List<DisturbObject>();
     [HideInInspector] public List<DangerObject> dangerObjects = new List<DangerObject>();
+    [HideInInspector] public List<Intruder> intruders = new List<Intruder>();
 
-    // [HideInInspector] public List<DisturbanceObject> intruders = new List<DisturbanceObject>();
+    [HideInInspector] public int disturbLevel;
+    [HideInInspector] public int disturbMaxLevel;
 
-    [HideInInspector] public int disturbanceLevel;
-    [HideInInspector] public int disturbanceMaxLevel;
-
-    private float disturbanceWeightsSum;
-
-    private float actualDisturbanceAmplifier;
+    [HideInInspector] public bool isActive;
 
     [HideInInspector] public float sanity;
-    private float actualSanityDropRate;
-    private float actualSanityAmplifier;
-
-    [HideInInspector] public float dangerLevel;
+    private float sanityDelta;
 
     private bool isIntruderActive;
 
-    private float actualDisturbanceChance;
-    private float actualDangerChance;
-    private float actualIntruderChance;
-    private float actualGameOverChance;
+    private float disturbInterval;
+    private float dangerInterval;
+    private float intruderInterval;
+    private float gameOverInterval;
 
-    private bool canDisturb;
-    private bool canDanger;
-    private bool canIntruder;
+    private float timeTillDisturb;
+    private float timeTillDanger;
+    private float timeTillIntruder;
+    private float timeTillGameOver;
 
-    [HideInInspector] public Action OnDangerChange;
-    private bool canGameOver;
-
-    private TimeSystem timeSystem;
-    private RoomSystem roomSystem;
+    [HideInInspector] public float dangerLevel;
 
     private void Awake()
     {
@@ -89,199 +57,104 @@ public class SanitySystem : MonoBehaviour
 
     private void Start()
     {
-        timeSystem = GameObject.Find("Time System").GetComponent<TimeSystem>();
-        timeSystem.sanityTickLenght = sanityTickLenght;
-
-        TimeSystem.OnSanityTick += () => Tick();
-
-        roomSystem = GameObject.Find("Room System").GetComponent<RoomSystem>();
+        OnDangerChange += () =>
+        {
+            if (dangerLevel >= dangerTreshold)
+            {
+                StartCoroutine(GameOverClock());
+            }
+        };
 
         PillPile.OnPickUp += () =>
         {
-            sanity += UnityEngine.Random.Range(minPillRegen, maxPillRegen);
-            sanity = Mathf.Clamp(sanity, 0f, maxSanity);
+            ChangeSanity(UnityEngine.Random.Range(minPillRegen, maxPillRegen));
         };
 
-        disturbanceWeightsSum = usualDisturbanceWeight + lightDisturbanceWeight + doorDisturbanceWeight;
+        sanity = 100f;
 
-        actualDisturbanceAmplifier = 0;
-        sanity = maxSanity;
-
-        Invoke(nameof(DisturbTimer), disturbCooldown);
-        Invoke(nameof(DangerTimer), dangerCooldown);
-        Invoke(nameof(IntruderTimer), intruderCooldown);
-
-        OnDangerChange = () =>
-        {
-            if (dangerLevel != 0)
-            {
-                Invoke(nameof(GameOverTimer), gameOverTimer);
-            }
-            else if (canGameOver)
-            {
-                canGameOver = false;
-            }
-        };
+        StartCoroutine(Activate());
     }
 
-    private void DisturbTimer()
+    private void Update()
     {
-        canDisturb = true;
+        if (!isIntruderActive && TimeSystem.Instance.currentMinutes >= intruderHour * 60f)
+        {
+            isIntruderActive = true;
+        }
+
+        sanityDelta = -sanityDropRate * disturbLevel / disturbMaxLevel;
+        ChangeSanity(sanityDelta);
+
+        timeTillDisturb = timeTillDisturb - Time.deltaTime >= 0f ? timeTillDisturb - Time.deltaTime : 0f;
+        timeTillDanger = timeTillDanger - Time.deltaTime >= 0f ? timeTillDanger - Time.deltaTime : 0f;
+        timeTillIntruder = timeTillIntruder - Time.deltaTime >= 0f ? timeTillIntruder - Time.deltaTime : 0f;
+        timeTillGameOver = timeTillGameOver - Time.deltaTime >= 0f ? timeTillGameOver - Time.deltaTime : 0f;
     }
 
-    private void DangerTimer()
+    public IEnumerator Activate()
     {
-        canDanger = true;
+        isActive = true;
+
+        StartCoroutine(Disturb());
+        StartCoroutine(Danger());
+
+        yield return new WaitUntil(() => isIntruderActive);
+        StartCoroutine(Intruder());
     }
 
-    private void IntruderTimer()
+    private IEnumerator Disturb()
     {
-        canIntruder = true;
+        disturbInterval = GetNewInterval(disturbParameters, TimeSystem.Instance.GetProgress());
+        timeTillDisturb = disturbInterval;
+        yield return new WaitForSeconds(disturbInterval);
+
+        List<DisturbObject> inactives = disturbObjects.Where(currentObject => !currentObject.isActive).ToList();
+
+        if (inactives.Count() != 0)
+        {
+            inactives[UnityEngine.Random.Range(0, inactives.Count())].Disturb();
+        }
+
+        StartCoroutine(Disturb());
     }
 
-    private void GameOverTimer()
+    private IEnumerator Danger()
     {
-        if (dangerLevel != 0 && !canGameOver)
+        dangerInterval = GetNewInterval(dangerParameters, TimeSystem.Instance.GetProgress());
+        timeTillDanger = dangerInterval;
+        yield return new WaitForSeconds(dangerInterval);
+
+        List<DangerObject> dangers = dangerObjects.Where(currentObject => currentObject.stage < 2).ToList();
+
+        if (dangers.Count() != 0)
         {
-            canGameOver = true;
+            dangers[UnityEngine.Random.Range(0, dangers.Count())].IncreaseStage();
         }
+
+        StartCoroutine(Danger());
     }
 
-    private void Tick()
+    private IEnumerator Intruder()
     {
-        actualSanityDropRate = (sanityDropRate * actualDisturbanceAmplifier) + (roomSystem.isInLight ? -sanityRegenInLight : sanityDropInDark);
-        sanity -= actualSanityDropRate;
-        sanity = Mathf.Clamp(sanity, 0f, maxSanity);
-        actualSanityAmplifier = (1 - (sanity / 100)) * sanityAmplifier;
+        intruderInterval = GetNewInterval(intruderParameters, TimeSystem.Instance.GetIntruderProgress(intruderHour));
+        timeTillIntruder = intruderInterval;
+        yield return new WaitForSeconds(intruderInterval);
 
-        float s = UnityEngine.Random.Range(0f, 100f);
+        intruders[UnityEngine.Random.Range(0, intruders.Count)].Activate();
 
-        actualDisturbanceChance = Mathf.Lerp(startDisturbanceChance, endDisturbanceChance, timeSystem.GetProgress());
-        if (s < actualDisturbanceChance && canDisturb)
-        {
-            Disturb();
-            canDisturb = false;
-            Invoke(nameof(DisturbTimer), disturbCooldown);
-        }
+        StartCoroutine(Intruder());
+    }
 
-        actualDangerChance = Mathf.Lerp(startDangerChance, endDangerChance, timeSystem.GetProgress());
-        actualDangerChance += actualSanityAmplifier;
-        if (s < actualDangerChance && canDanger)
-        {
-            Danger();
-            canDanger = false;
-            Invoke(nameof(DangerTimer), dangerCooldown);
-        }
+    private IEnumerator GameOverClock()
+    {
+        gameOverInterval = GetNewInterval(gameOverParameters, TimeSystem.Instance.GetProgress());
+        timeTillGameOver = gameOverInterval;
+        yield return new WaitForSeconds(gameOverInterval);
 
-        if (!isIntruderActive)
-        {
-            isIntruderActive = timeSystem.durationHours * timeSystem.GetProgress() >= intruderHour;
-        }
-        else
-        {
-            actualIntruderChance = Mathf.Lerp(startIntruderChance, endIntruderChance, timeSystem.GetIntruderProgress(intruderHour));
-            actualIntruderChance += actualSanityAmplifier;
-            if (s < actualIntruderChance && canIntruder)
-            {
-                Intruder();
-                canIntruder = false;
-                Invoke(nameof(IntruderTimer), intruderCooldown);
-            }
-        }
-
-        actualGameOverChance = dangerLevel * gameOverChance;
-        if (s < actualGameOverChance && canGameOver)
+        if (dangerLevel >= dangerTreshold)
         {
             GameOver();
         }
-
-        UpdateDebugUI();
-    }
-
-    public void UpdateActualDisturbanceAmplifier()
-    {
-        actualDisturbanceAmplifier = disturbanceLevel / disturbanceMaxLevel;
-    }
-
-    private void Disturb()
-    {
-        float r = UnityEngine.Random.Range(0f, disturbanceWeightsSum);
-
-        if (r < usualDisturbanceWeight)
-        {
-            UsualDisturb();
-        }
-        else if (r < usualDisturbanceWeight + lightDisturbanceWeight)
-        {
-            LightDisturb();
-            sanity -= lightSanityDecrement;
-            if (sanity < 0)
-            {
-                sanity = 0;
-            }
-        }
-        else
-        {
-            DoorDisturb();
-            sanity -= doorSanityDecrement;
-            if (sanity < 0)
-            {
-                sanity = 0;
-            }
-        }
-    }
-
-    private void UsualDisturb()
-    {
-        List<DisturbanceObject> inactives = disturbanceObjects.Where(currentObject => !currentObject.isActive).ToList();
-
-        if (inactives.Count() == 0)
-        {
-            return;
-        }
-
-        inactives[UnityEngine.Random.Range(0, inactives.Count())].Disturb();
-    }
-
-    private void LightDisturb()
-    {
-        List<LightSwitchObject> lightsOn = lights.Where(currentObject => currentObject.isOn).ToList();
-
-        if (lightsOn.Count() == 0)
-        {
-            return;
-        }
-
-        lightsOn[UnityEngine.Random.Range(0, lightsOn.Count())].Switch();
-    }
-
-    private void DoorDisturb()
-    {
-        List<Door> openDoors = doors.Where(currentObject => currentObject.isOpen).ToList();
-
-        if (openDoors.Count() == 0)
-        {
-            return;
-        }
-
-        openDoors[UnityEngine.Random.Range(0, openDoors.Count())].Interact();
-    }
-
-    private void Danger()
-    {
-        List<DangerObject> dangers = dangerObjects.Where(currentObject => currentObject.stage < 2).ToList();
-
-        if (dangers.Count() == 0)
-        {
-            return;
-        }
-
-        dangers[UnityEngine.Random.Range(0, dangers.Count())].IncreaseStage();
-    }
-
-    private void Intruder()
-    {
-        IntruderController.Instance.Intrude();
     }
 
     public void GameOver()
@@ -289,34 +162,17 @@ public class SanitySystem : MonoBehaviour
         Debug.Log("Game is over");
     }
 
-    public void ReduceSanity(float s)
+    public void ChangeSanity(float s)
     {
-        sanity -= s;
-        sanity = Mathf.Clamp(sanity, 0f, maxSanity);
+        sanity += s;
+        sanity = Mathf.Clamp(sanity, 0f, 100f);
     }
 
-    private void UpdateDebugUI()
+    private float GetNewInterval(SanityEventParameters parameters, float t)
     {
-        DebugUI.instance.disturbanceLevel = disturbanceLevel;
-        DebugUI.instance.disturbanceMaxLevel = disturbanceMaxLevel;
-
-        DebugUI.instance.actualDisturbanceAmplifier = actualDisturbanceAmplifier;
-
-        DebugUI.instance.sanity = sanity;
-        DebugUI.instance.maxSanity = maxSanity;
-        DebugUI.instance.actualSanityDropRate = actualSanityDropRate;
-        DebugUI.instance.actualSanityAmplifier = actualSanityAmplifier;
-
-        DebugUI.instance.isIntruderActive = isIntruderActive;
-
-        DebugUI.instance.actualDisturbanceChance = actualDisturbanceChance;
-        DebugUI.instance.actualDangerChance = actualDangerChance;
-        DebugUI.instance.actualIntruderChance = actualIntruderChance;
-        DebugUI.instance.actualGameOverChance = actualGameOverChance;
-
-        DebugUI.instance.canDisturb = canDisturb;
-        DebugUI.instance.canDanger = canDanger;
-        DebugUI.instance.canIntruder = canIntruder;
-        DebugUI.instance.canGameOver = canGameOver;
+        float normalDev = UnityEngine.Random.Range(-parameters.normalDev, parameters.normalDev);
+        float sanityDev = -parameters.sanityDev * (1f - (sanity / 100f));
+        float totalDev = normalDev + sanityDev;
+        return Mathf.Lerp(parameters.startInterval, parameters.endInterval, t) * (1 + totalDev);
     }
 }

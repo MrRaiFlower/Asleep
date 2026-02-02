@@ -34,8 +34,6 @@ public class Door : MonoBehaviour, InteractableObject
             handleDefaultRotation = handle.transform.localRotation.eulerAngles;
             handlePressedRotation = handleDefaultRotation + Vector3.up * 45f;
         }
-
-        SanitySystem.Instance.doors.Add(this);
     }
 
     public void Interact()

@@ -74,10 +74,6 @@ public class FlashlightControl : MonoBehaviour
             flashlightSound.Play();
             isOn = !isOn;
         }
-
-        DebugUI.instance.hasFlashlight = isActive;
-        DebugUI.instance.flashLightCharge = (int) charge;
-        DebugUI.instance.flashLightMaxCharge = (int) maxCharge;
     }
 
     private void TurnOn()

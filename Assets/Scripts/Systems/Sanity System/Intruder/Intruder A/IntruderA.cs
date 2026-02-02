@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class IntruderA : MonoBehaviour, Intruder
 {
-    [SerializeField] private int _locations;
-    [Space(16)]
-    [SerializeField] private List<GameObject> _roomBodies;
-    [SerializeField] private List<GameObject> _hidingBodies;
-    [SerializeField] private List<HidingSpot> _hidingSpots;
+    [SerializeField] private List<IntruderALocation> _locations = new List<IntruderALocation>();
     [Space(16)]
     [SerializeField] private float _phaseTwoTime;
     [SerializeField] private float _phaseThreeTime;
@@ -16,24 +12,22 @@ public class IntruderA : MonoBehaviour, Intruder
     [SerializeField] private float _minSanityDrain;
     [SerializeField] private float _maxSanityDrain;
 
-    private int _location;
+    private IntruderALocation _location;
 
     private void Start()
     {
-        for (int i = 0; i < _locations; i++)
+        foreach (IntruderALocation location in _locations)
         {
-            _roomBodies[i].SetActive(false);
-            _hidingBodies[i].SetActive(false);
+            location.roomBody.SetActive(false);
+            location.hidingBody.SetActive(false);
         }
 
-        // Activate();
+        SanitySystem.Instance.intruders.Add(this);
     }
 
     public void Activate()
     {
-        IntruderController.Instance.isActive = true;
-
-        _location = Random.Range(0, _roomBodies.Count);
+        _location = _locations[Random.Range(0, _locations.Count)];
         SpawnBody();
 
         StartCoroutine(PhaseOne());
@@ -41,7 +35,7 @@ public class IntruderA : MonoBehaviour, Intruder
 
     private IEnumerator PhaseOne()
     {
-        IntruderBody body = _roomBodies[_location].GetComponent<IntruderBody>();
+        LookDetectionBody body = _location.roomBody.GetComponent<LookDetectionBody>();
 
         yield return new WaitUntil(() => body.IsSeen()); Debug.Log("Hide!");
 
@@ -85,28 +79,27 @@ public class IntruderA : MonoBehaviour, Intruder
     private void Leave()
     {
         RemoveBody();
-        SanitySystem.Instance.ReduceSanity(UnityEngine.Random.Range(_minSanityDrain, _maxSanityDrain));
-        IntruderController.Instance.isActive = false;
+        SanitySystem.Instance.ChangeSanity(-Random.Range(_minSanityDrain, _maxSanityDrain));
     }
 
     private bool IsPlayerHidden()
     {
-        return _hidingSpots[_location].HidesPlayer();
+        return _location.hidingSpot.GetComponent<HidingSpot>().HidesPlayer();
     }
 
     private void SpawnBody()
     {
-        _roomBodies[_location].SetActive(true);
+        _location.roomBody.SetActive(true);
     }
 
     private void MoveBody()
     {
-        _roomBodies[_location].SetActive(false);
-        _hidingBodies[_location].SetActive(true);
+        _location.roomBody.SetActive(false);
+        _location.hidingBody.SetActive(true);
     }
 
     private void RemoveBody()
     {
-        _hidingBodies[_location].SetActive(false);
+        _location.hidingBody.SetActive(false);
     }
 }

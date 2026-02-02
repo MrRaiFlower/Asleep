@@ -13,14 +13,26 @@ public class ShowerCabin : SwitchObject, InteractableObject
     private Vector3 handleDefaultRotation;
     private Vector3 handlePressedRotation;
 
+    private float showerDefaultEmissionRate;
+    private float splashesDefaultEmissionRate;
+
+    private ParticleSystem.EmissionModule showerEmission;
+    private ParticleSystem.EmissionModule splashesEmission;
+
     private void Start()
     {
-        showerParticles.Stop();
-        splahesParticles.Stop();
-        showerSound.volume = 0.0f;
-
         handleDefaultRotation = handleObject.transform.localRotation.eulerAngles;
         handlePressedRotation = handleDefaultRotation - Vector3.right * 10f;
+
+        showerEmission = showerParticles.emission;
+        splashesEmission = splahesParticles.emission;
+
+        showerDefaultEmissionRate = showerEmission.rateOverTimeMultiplier;
+        splashesDefaultEmissionRate = splashesEmission.rateOverTimeMultiplier;
+
+        showerEmission.rateOverTimeMultiplier = 0f;
+        splashesEmission.rateOverTimeMultiplier = 0f;
+        showerSound.volume = 0.0f;
 
         turnOnAction = () =>
         {
@@ -28,10 +40,13 @@ public class ShowerCabin : SwitchObject, InteractableObject
             turnOnSequence.SetEase(Ease.InOutSine);
 
             turnOnSequence.Pause();
-            turnOnSequence.Append(handleObject.transform.DOLocalRotate(handlePressedRotation, 0.3f));
-            turnOnSequence.JoinCallback(() => showerSound.Play());
-            turnOnSequence.Join(DOTween.To(() => showerSound.volume, x => showerSound.volume = x, 0.2f, 0.2f));
-            turnOnSequence.JoinCallback(() => {showerParticles.Play(); splahesParticles.Play(); isSwitching = false; isOn = !isOn;});
+            turnOnSequence.Append(handleObject.transform.DOLocalRotate(handlePressedRotation, 0.2f));
+
+            turnOnSequence.Join(DOTween.To(() => showerSound.volume, x => showerSound.volume = x, 0.2f, 1f));
+            turnOnSequence.Join(DOTween.To(() => showerEmission.rateOverTimeMultiplier, x => showerEmission.rateOverTimeMultiplier = x, showerDefaultEmissionRate, 1f));
+            turnOnSequence.Join(DOTween.To(() => splashesEmission.rateOverTimeMultiplier, x => splashesEmission.rateOverTimeMultiplier = x, splashesDefaultEmissionRate, 1f));
+
+            turnOnSequence.JoinCallback(() => { isSwitching = false; isOn = !isOn; });
 
             turnOnSequence.Play();
         };
@@ -42,10 +57,13 @@ public class ShowerCabin : SwitchObject, InteractableObject
             turnOffSequence.SetEase(Ease.InOutSine);
 
             turnOffSequence.Pause();
-            turnOffSequence.Append(handleObject.transform.DOLocalRotate(handleDefaultRotation, 0.3f));
+            turnOffSequence.Append(handleObject.transform.DOLocalRotate(handleDefaultRotation, 0.2f));
+
             turnOffSequence.Join(DOTween.To(() => showerSound.volume, x => showerSound.volume = x, 0f, 1f));
-            turnOffSequence.AppendCallback(() => showerSound.Stop());
-            turnOffSequence.JoinCallback(() => {showerParticles.Stop(); splahesParticles.Stop(); isSwitching = false; isOn = !isOn;});
+            turnOffSequence.Join(DOTween.To(() => showerEmission.rateOverTimeMultiplier, x => showerEmission.rateOverTimeMultiplier = x, 0f, 1f));
+            turnOffSequence.Join(DOTween.To(() => splashesEmission.rateOverTimeMultiplier, x => splashesEmission.rateOverTimeMultiplier = x, 0f, 1f));
+            
+            turnOffSequence.JoinCallback(() => { isSwitching = false; isOn = !isOn; });
 
             turnOffSequence.Play();
         };

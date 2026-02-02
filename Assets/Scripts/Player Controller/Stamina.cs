@@ -63,9 +63,6 @@ public class Stamina : MonoBehaviour
         {
             isTired = false;
         }
-
-        DebugUI.instance.stamina = (int) stamina;
-        DebugUI.instance.isTired = isTired;
     }
 
     public bool Jump()

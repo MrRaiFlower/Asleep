@@ -59,11 +59,6 @@ public class PowerSystem : MonoBehaviour
             hasPower = false;
             OnStateChange.Invoke();
         }
-
-        DebugUI.instance.power = power;
-        DebugUI.instance.maxPower = maxPower;
-        DebugUI.instance.powerDrain = drain;
-        DebugUI.instance.powerFailure = powerFailure;
     }
 
     private void PowerOut()

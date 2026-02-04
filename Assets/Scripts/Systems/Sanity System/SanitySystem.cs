@@ -152,6 +152,7 @@ public class SanitySystem : MonoBehaviour
         isIntruderCurrentlyActive = true;
 
         yield return new WaitUntil(() => !isIntruderCurrentlyActive);
+        
         StartCoroutine(Intruder());
     }
 

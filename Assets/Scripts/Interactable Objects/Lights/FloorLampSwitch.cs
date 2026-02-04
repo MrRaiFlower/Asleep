@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class FloorLampSwitch : LightSwitchObject
 {
+    [SerializeField] GameObject switchObject;
+    [Space(16)]
     [SerializeField] AudioSource clickSound;
-
+    [Space(16)]
     [SerializeField] float animationDuration;
     [SerializeField] float yOffset;
 
@@ -13,8 +15,8 @@ public class FloorLampSwitch : LightSwitchObject
 
     void Start()
     {
-        defaultPosition = gameObject.transform.localPosition;
-        downPosition = gameObject.transform.localPosition - Vector3.up * yOffset;
+        defaultPosition = switchObject.transform.localPosition;
+        downPosition = switchObject.transform.localPosition - Vector3.up * yOffset;
 
         switchOnAction = () =>
         {
@@ -23,10 +25,10 @@ public class FloorLampSwitch : LightSwitchObject
             
             sequence.SetEase(Ease.InExpo);
             sequence.AppendCallback(() => clickSound.Play());
-            sequence.Append(gameObject.transform.DOLocalMove(downPosition, animationDuration / 3f * 2f));
+            sequence.Append(switchObject.transform.DOLocalMove(downPosition, animationDuration / 3f * 2f));
             sequence.AppendCallback(() => TrySwitchLight());
             sequence.SetEase(Ease.OutQuad);
-            sequence.Append(gameObject.transform.DOLocalMove(defaultPosition, animationDuration / 3f));
+            sequence.Append(switchObject.transform.DOLocalMove(defaultPosition, animationDuration / 3f));
             
             sequence.Play();
         };

@@ -59,6 +59,8 @@ public class PowerSystem : MonoBehaviour
             hasPower = false;
             OnStateChange.Invoke();
         }
+
+        DebugOverlay.Instance.power = power / maxPower * 100f;
     }
 
     private void PowerOut()

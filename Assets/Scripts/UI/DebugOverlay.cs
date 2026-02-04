@@ -16,6 +16,7 @@ public class DebugOverlay : MonoBehaviour
 
     private string _text;
 
+    [HideInInspector] public float power;
     [HideInInspector] public float flashlightCharge;
 
     [HideInInspector] public float sanity;
@@ -49,8 +50,9 @@ public class DebugOverlay : MonoBehaviour
             return;
         }
 
-        _text = "<color=yellow>Debug</color>\n";
+        _text = "<color=yellow>Debug Info</color>\n";
         _text += "\n";
+        _text += String.Format("Power: {0:F2}%\n", power).Replace(',', '.');
         _text += String.Format("Flashlight charge: {0:F2}%\n", flashlightCharge).Replace(',', '.');
         _text += "\n";
         _text += String.Format("Sanity: {0:F2}%\n", sanity).Replace(',', '.');

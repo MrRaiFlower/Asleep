@@ -24,7 +24,7 @@ public class Fade : MonoBehaviour
         _transperentColor = new Color(0f, 0f, 0f, 0f);
     }
 
-    public void DoFade(Action action, float duration = 0.25f)
+    public void DoFade(Action action, float duration = 0.5f)
     {
         Sequence sequence = DOTween.Sequence();
         sequence.SetEase(Ease.InOutSine);

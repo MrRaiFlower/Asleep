@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class HidingSpot : MonoBehaviour
 {
-    [SerializeField] SwitchObject _switchObject;
+    [SerializeField] private SwitchObject _switchObject;
 
-    [SerializeField] Movement _playerMovementScript;
+    [SerializeField] private Movement _playerMovementScript;
+
+    [SerializeField] public GameObject hidingBody;
 
     private bool _playerIsInside;
+
+    private void Start()
+    {
+        hidingBody.SetActive(false);
+    }
 
     public bool HidesPlayer()
     {

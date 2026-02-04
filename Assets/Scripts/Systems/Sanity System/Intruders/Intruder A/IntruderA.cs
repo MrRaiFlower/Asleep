@@ -19,7 +19,6 @@ public class IntruderA : MonoBehaviour, Intruder
         foreach (IntruderALocation location in _locations)
         {
             location.roomBody.SetActive(false);
-            location.hidingBody.SetActive(false);
         }
 
         SanitySystem.Instance.intruders.Add(this);
@@ -84,7 +83,15 @@ public class IntruderA : MonoBehaviour, Intruder
 
     private bool IsPlayerHidden()
     {
-        return _location.hidingSpot.GetComponent<HidingSpot>().HidesPlayer();
+        foreach (GameObject spot in _location.hidingSpots)
+        {
+            if (spot.GetComponent<HidingSpot>().HidesPlayer())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void SpawnBody()
@@ -95,11 +102,17 @@ public class IntruderA : MonoBehaviour, Intruder
     private void MoveBody()
     {
         _location.roomBody.SetActive(false);
-        _location.hidingBody.SetActive(true);
+        foreach(GameObject spot in _location.hidingSpots)
+        {
+            spot.GetComponent<HidingSpot>().hidingBody.SetActive(true);
+        }
     }
 
     private void RemoveBody()
     {
-        _location.hidingBody.SetActive(false);
+        foreach(GameObject spot in _location.hidingSpots)
+        {
+            spot.GetComponent<HidingSpot>().hidingBody.SetActive(false);
+        }
     }
 }

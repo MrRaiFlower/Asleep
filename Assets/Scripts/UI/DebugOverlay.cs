@@ -49,7 +49,7 @@ public class DebugOverlay : MonoBehaviour
             return;
         }
 
-        _text = "<color=yellow>Debug Overlay</color>\n";
+        _text = "<color=yellow>Debug</color>\n";
         _text += "\n";
         _text += String.Format("Flashlight charge: {0:F2}%\n", flashlightCharge).Replace(',', '.');
         _text += "\n";

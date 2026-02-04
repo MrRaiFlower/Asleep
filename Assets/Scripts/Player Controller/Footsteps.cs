@@ -44,19 +44,19 @@ public class Footsteps : MonoBehaviour
         stepSequence.SetEase(Ease.InOutSine);
         stepSequence.Pause();
 
-        stepSequence.AppendCallback(() => {isMakingAStep = true;});
+        stepSequence.AppendCallback(() => { isMakingAStep = true; });
 
         stepSequence.Append(cameraObject.transform.DOLocalMoveY(targetDepth, actualSpeed / 2));
         stepSequence.Join(cameraObject.transform.DOLocalMoveX(targetDepth / 2 * leanDirection, actualSpeed / 2));
 
-        stepSequence.AppendCallback(() => {CheckFloor(); playerSoundScript.PlayFootstepSound(movementSpeedRatio > 1 ? 1f : (movementSpeedRatio < 1 ? 0.5f : 0.75f));});
+        stepSequence.JoinCallback(() => { CheckFloor(); playerSoundScript.PlayFootstepSound(movementSpeedRatio > 1 ? 1f : (movementSpeedRatio < 1 ? 0.5f : 0.75f)); });
 
         stepSequence.Append(cameraObject.transform.DOLocalMoveY(0, actualSpeed / 2));
         stepSequence.Join(cameraObject.transform.DOLocalMoveX(0, actualSpeed / 2));
 
-        stepSequence.AppendCallback(() => {leanDirection *= -1;});
+        stepSequence.AppendCallback(() => { leanDirection *= -1; });
 
-        stepSequence.AppendCallback(() => {isMakingAStep = false;});
+        stepSequence.AppendCallback(() => { isMakingAStep = false; });
 
         stepSequence.Play();
     }

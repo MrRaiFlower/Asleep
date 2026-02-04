@@ -20,10 +20,11 @@ public class FlashlightControl : MonoBehaviour
     [SerializeField] private float startCharge;
     [SerializeField] private float dischargeSpeed;
     [SerializeField] private float switchSpeed;
-    [SerializeField] private float intensity;
 
     [SerializeField] public float minRecharge;
     [SerializeField] public float maxRecharge;
+
+    private float intensity;
 
     [HideInInspector] public bool isActive;
 
@@ -38,6 +39,8 @@ public class FlashlightControl : MonoBehaviour
     {
         flashlightAction = InputSystem.actions.FindAction("Flashlight");
 
+        intensity = lights[0].intensity;
+        
         charge = startCharge;
 
         foreach (Light light in lights)

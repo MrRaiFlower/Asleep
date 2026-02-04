@@ -104,8 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffb4ab7197947943a5697916474dcfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitch
+  isOn: 0
+  isSwitching: 0
+  lightObject: {fileID: 0}
   switchObject: {fileID: 5066076421273843997}
-  ceilingLightScripts: []
   clickSound: {fileID: 2901041245368630945}
 --- !u!82 &2901041245368630945
 AudioSource:
@@ -120,7 +122,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 4e24da9a1d4147a4f8213b9b2e919326, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0

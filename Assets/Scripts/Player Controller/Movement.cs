@@ -173,7 +173,7 @@ public class Movement : MonoBehaviour
     private void CheckGround()
     {
         wasGrounded = isGrounded;
-        isGrounded = Physics.CheckSphere(playerObject.transform.position + Vector3.up * characterControllerComponent.radius * 0.475f, characterControllerComponent.radius * 0.95f, ~playerLayerMask);
+        isGrounded = Physics.CheckSphere(playerObject.transform.position + Vector3.up * characterControllerComponent.radius * 0.475f, characterControllerComponent.radius * 0.95f, ~playerLayerMask, QueryTriggerInteraction.Ignore);
         hasGrounded = !wasGrounded && isGrounded;
 
         if (hasGrounded && -verticalVelocity.y > jumpSpeed * 0.95f)
@@ -185,7 +185,7 @@ public class Movement : MonoBehaviour
     private void CheckCeiling()
     {
         wasTouchingCeiling = isTouchingCeiling;
-        isTouchingCeiling = Physics.CheckSphere(playerObject.transform.position + Vector3.up * (characterControllerComponent.height -(characterControllerComponent.radius * 0.475f)), characterControllerComponent.radius * 0.95f, ~playerLayerMask);
+        isTouchingCeiling = Physics.CheckSphere(playerObject.transform.position + Vector3.up * (characterControllerComponent.height -(characterControllerComponent.radius * 0.475f)), characterControllerComponent.radius * 0.95f, ~playerLayerMask, QueryTriggerInteraction.Ignore);
         hasTouchedCeiling = !wasTouchingCeiling && isTouchingCeiling;
     }
 

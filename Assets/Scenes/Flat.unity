@@ -864,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8145079545638784899, guid: 139637905b2fb4a488a5a3f9d7b5c90d, type: 3}
       propertyPath: m_StepOffset
-      value: 0.1
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 8836604985802297386, guid: 139637905b2fb4a488a5a3f9d7b5c90d, type: 3}
       propertyPath: playerLayerMask.m_Bits

@@ -43,6 +43,7 @@ public class Fireplace : SwitchObject, InteractableObject
             sequence.Pause();
 
             sequence.Append(DOTween.To(() => _fireSound.volume, x => _fireSound.volume = x, _fireVolume, _switchDuration));
+            sequence.JoinCallback(_clickSound.Play);
             for (int i = 0; i < _particles.Count; i++)
             {
                 ParticleSystem.EmissionModule emission = _particlesEmissions[i];
@@ -64,6 +65,7 @@ public class Fireplace : SwitchObject, InteractableObject
             sequence.Pause();
 
             sequence.Append(DOTween.To(() => _fireSound.volume, x => _fireSound.volume = x, 0f, _switchDuration));
+            sequence.JoinCallback(_clickSound.Play);
             for (int i = 0; i < _particles.Count; i++)
             {
                 ParticleSystem.EmissionModule emission = _particlesEmissions[i];

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -35,6 +36,11 @@ public class SwitchObject : MonoBehaviour
 
     protected void EndSwitchSequence(Sequence sequence)
     {
-        sequence.AppendCallback(() => {isSwitching = false; isOn = !isOn;});
+        sequence.AppendCallback(EndSwitch);
+    }
+
+    protected void EndSwitch()
+    {
+        isSwitching = false; isOn = !isOn;
     }
 }

@@ -34,8 +34,6 @@ public class Fireplace : SwitchObject, InteractableObject
         _fireVolume = _fireSound.volume;
         _lightsIntensity = _ligths[0].intensity;
 
-        PowerSystem.OnStateChange += () => Refresh();
-
         turnOnAction = () =>
         {
             Sequence sequence = DOTween.Sequence();
@@ -83,38 +81,6 @@ public class Fireplace : SwitchObject, InteractableObject
 
     public void Interact()
     {
-        TrySwitch();
-    }
-
-    private void TrySwitch()
-    {
-        if (!PowerSystem.Instance.hasPower)
-        {
-            return;
-        }
-
-       Switch();
-    }
-
-    public void Refresh()
-    {
-        if (PowerSystem.Instance.hasPower && !isOn)
-        {
-            StartCoroutine(WaitToSwitch());
-        }
-        else if (!PowerSystem.Instance.hasPower && isOn)
-        {
-            StartCoroutine(WaitToSwitch());
-        }
-    }
-
-    private IEnumerator WaitToSwitch()
-    {
-        while (isSwitching)
-        {
-            yield return null;
-        }
-
         Switch();
     }
 }

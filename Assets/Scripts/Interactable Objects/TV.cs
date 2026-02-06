@@ -1,29 +1,33 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class TV : SwitchObject, InteractableObject
 {
-    [SerializeField] private GameObject _normalScreen;
-    [SerializeField] private GameObject _staticScreen;
+    [SerializeField] private GameObject _screen;
     [Space(16)]
-    [SerializeField] private List<Light> _lights = new List<Light>();
+    [SerializeField] private Light _light;
     [Space(16)]
     [SerializeField] private AudioSource _switchSound;
     [SerializeField] private AudioSource _staticSound;
     [Space(16)]
     [SerializeField] private float _switchDuration;
 
+    private Material _screenMaterial;
+    private VideoPlayer _screenVideoPlayer;
+
     private float _lightsIntensity;
     private float _staticVolume;
 
     private void Start()
     {
-        _lightsIntensity = _lights[0].intensity;
-        foreach (Light light in _lights)
-        {
-            light.intensity = 0f;
-        }
+        _screenMaterial = _screen.GetComponent<MeshRenderer>().material;
+        _screenVideoPlayer = _screen.GetComponent<VideoPlayer>();
+
+        _screenVideoPlayer.Prepare();
+
+        _lightsIntensity = _light.intensity;
+        _light.intensity = 0f;
 
         _staticVolume = _staticSound.volume;
         _staticSound.volume = 0f;
@@ -34,16 +38,11 @@ public class TV : SwitchObject, InteractableObject
             sequence.SetEase(Ease.InOutSine);
             sequence.Pause();
 
-            sequence.AppendCallback(() => { 
-                _switchSound.Play(); 
-                _normalScreen.SetActive(false); 
-                _staticScreen.SetActive(true); 
-                foreach (Light light in _lights)
-                {
-                    light.intensity = _lightsIntensity;
-                }
-                });
+            sequence.AppendCallback(_switchSound.Play);
+            sequence.AppendCallback(_screenVideoPlayer.Play);
+            sequence.Join(DOTween.To(() => _light.intensity, x => _light.intensity = x, _lightsIntensity, _switchDuration));
             sequence.Join(DOTween.To(() => _staticSound.volume, x => _staticSound.volume = x, _staticVolume, _switchDuration));
+            sequence.Join(DOTween.To(() => _screenMaterial.GetFloat("_Tint"), x => _screenMaterial.SetFloat("_Tint", x), 0f, _switchDuration));
             EndSwitchSequence(sequence);
 
             sequence.Play();
@@ -55,16 +54,11 @@ public class TV : SwitchObject, InteractableObject
             sequence.SetEase(Ease.InOutSine);
             sequence.Pause();
 
-            sequence.AppendCallback(() => { 
-                _switchSound.Play(); 
-                _normalScreen.SetActive(true); 
-                _staticScreen.SetActive(false); 
-                foreach (Light light in _lights)
-                {
-                    light.intensity = 0f;
-                }
-                });
+            sequence.AppendCallback(_switchSound.Play);
+            sequence.Join(DOTween.To(() => _light.intensity, x => _light.intensity = x, 0f, _switchDuration));
             sequence.Join(DOTween.To(() => _staticSound.volume, x => _staticSound.volume = x, 0f, _switchDuration));
+            sequence.Join(DOTween.To(() => _screenMaterial.GetFloat("_Tint"), x => _screenMaterial.SetFloat("_Tint", x), 1f, _switchDuration));
+            sequence.AppendCallback(_screenVideoPlayer.Stop);
             EndSwitchSequence(sequence);
 
             sequence.Play();

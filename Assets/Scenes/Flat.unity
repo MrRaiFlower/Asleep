@@ -872,7 +872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9109502078204260473, guid: 139637905b2fb4a488a5a3f9d7b5c90d, type: 3}
       propertyPath: range
-      value: 1.35
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 9109502078204260473, guid: 139637905b2fb4a488a5a3f9d7b5c90d, type: 3}
       propertyPath: crosshair

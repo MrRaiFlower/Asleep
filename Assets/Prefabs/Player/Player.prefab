@@ -1106,7 +1106,7 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 452
-  range: 1.35
+  range: 1.5
 --- !u!1 &8136885300077075098
 GameObject:
   m_ObjectHideFlags: 0

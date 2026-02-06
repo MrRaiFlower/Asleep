@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-8986236147235048127
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pillow 5_{-8986236147235048127}
+  m_AudioClip: {fileID: 8300000, guid: 546683a00f5a4214797a5abb917acafb, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-8234301168439496654
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pillow 1_{-8234301168439496654}
+  m_AudioClip: {fileID: 8300000, guid: b64acf424ae40dc4eaa48a790d7a1f1d, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-4755847081134981587
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pillow 4_{-4755847081134981587}
+  m_AudioClip: {fileID: 8300000, guid: 4da2f0ecb8ecca240bbc7ce07383c400, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-4054702080207593157
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pillow 2_{-4054702080207593157}
+  m_AudioClip: {fileID: 8300000, guid: 4ba59d7cebdf3424eb28d26f55607a39, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &1507873030934787980
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pillow 3_{1507873030934787980}
+  m_AudioClip: {fileID: 8300000, guid: a88931a87667a674f8f8049fdde392c6, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pillow
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: 0, y: 0}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: -8234301168439496654}
+  - {fileID: -4054702080207593157}
+  - {fileID: 1507873030934787980}
+  - {fileID: -4755847081134981587}
+  - {fileID: -8986236147235048127}
+  m_AvoidRepeatingLast: 0
+  m_PlaybackMode: 2
+  m_TriggerMode: 0
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 0
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0

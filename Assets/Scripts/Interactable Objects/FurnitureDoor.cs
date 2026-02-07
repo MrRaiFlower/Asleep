@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FurnitureDoor : SwitchObject, InteractableObject
 {
+    [SerializeField] private SwitchObject _customSwitchObject;
     [SerializeField] private GameObject _doorObject;
     [SerializeField] private Collider _doorCollider;
     [SerializeField] private Vector3 _rotation;
@@ -17,7 +18,15 @@ public class FurnitureDoor : SwitchObject, InteractableObject
             sequence.SetEase(Ease.InOutSine);
             sequence.Pause();
 
-            sequence.AppendCallback(() => { _doorCollider.enabled = false; _sound.Play(); });
+            sequence.AppendCallback(() =>
+            {
+                _doorCollider.enabled = false;
+                _sound.Play();
+                if (_customSwitchObject != null)
+                {
+                    _customSwitchObject.Switch();
+                }
+            });
             sequence.Join(transform.DOLocalRotate(_rotation, _animationDuration, RotateMode.LocalAxisAdd));
             sequence.AppendCallback(() => _doorCollider.enabled = true);
             EndSwitchSequence(sequence);
@@ -31,7 +40,15 @@ public class FurnitureDoor : SwitchObject, InteractableObject
             sequence.SetEase(Ease.InOutSine);
             sequence.Pause();
 
-            sequence.AppendCallback(() => { _doorCollider.enabled = false; _sound.Play(); });
+            sequence.AppendCallback(() =>
+            {
+                _doorCollider.enabled = false;
+                _sound.Play();
+                if (_customSwitchObject != null)
+                {
+                    _customSwitchObject.Switch();
+                }
+            });
             sequence.Join(transform.DOLocalRotate(-_rotation, _animationDuration, RotateMode.LocalAxisAdd));
             sequence.AppendCallback(() => _doorCollider.enabled = true);
             EndSwitchSequence(sequence);

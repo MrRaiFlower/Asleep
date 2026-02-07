@@ -12,6 +12,9 @@ public class SanitySystem : MonoBehaviour
 
     [SerializeField] public float sanityDropRate;
     [Space(16)]
+    [SerializeField] public float sanityRegenRateInLight;
+    [SerializeField] public float sanityDropRateInDarkness;
+    [Space(16)]
     [SerializeField] public float minPillRegen;
     [SerializeField] public float maxPillRegen;
     [Space(16)]
@@ -83,8 +86,9 @@ public class SanitySystem : MonoBehaviour
             isIntruderActive = true;
         }
 
-        sanityDelta = -sanityDropRate * disturbLevel / disturbMaxLevel * Time.deltaTime;
-        ChangeSanity(sanityDelta);
+        sanityDelta = -sanityDropRate * disturbLevel / disturbMaxLevel;
+        sanityDelta += RoomSystem.Instance.isInLight ? sanityRegenRateInLight : -sanityDropRateInDarkness;
+        ChangeSanity(sanityDelta * Time.deltaTime);
 
         timeTillDisturb = timeTillDisturb - Time.deltaTime >= 0f ? timeTillDisturb - Time.deltaTime : 0f;
         timeTillDanger = timeTillDanger - Time.deltaTime >= 0f ? timeTillDanger - Time.deltaTime : 0f;

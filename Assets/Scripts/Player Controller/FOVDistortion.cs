@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class FOVDistortion : MonoBehaviour
 {
-    [SerializeField] private Camera cameraObject;
+    [SerializeField] private CinemachineCamera cameraObject;
 
     [SerializeField] private Movement movementScript;
 
@@ -15,7 +17,7 @@ public class FOVDistortion : MonoBehaviour
 
     private void Start()
     {
-        defaultFOV = cameraObject.fieldOfView;
+        defaultFOV = cameraObject.Lens.FieldOfView;
         slowFOV = defaultFOV * (1.0f - factor);
         fastFOV = defaultFOV * (1.0f + factor);
     }
@@ -26,18 +28,18 @@ public class FOVDistortion : MonoBehaviour
 
         if (movementSpeedRatio < 0.95f)
         {
-            cameraObject.fieldOfView = Mathf.Lerp(cameraObject.fieldOfView, slowFOV, speed * Time.deltaTime);
+            cameraObject.Lens.FieldOfView = Mathf.Lerp(cameraObject.Lens.FieldOfView, slowFOV, speed * Time.deltaTime);
         }
         else if (movementSpeedRatio > 1.05f)
         {
-            cameraObject.fieldOfView = Mathf.Lerp(cameraObject.fieldOfView, fastFOV, speed * Time.deltaTime);
+            cameraObject.Lens.FieldOfView = Mathf.Lerp(cameraObject.Lens.FieldOfView, fastFOV, speed * Time.deltaTime);
         }
         else if (movementSpeedRatio == 0)
         {
-            cameraObject.fieldOfView = Mathf.Lerp(cameraObject.fieldOfView, defaultFOV, speed * Time.deltaTime);
-            if (Mathf.Abs(cameraObject.fieldOfView - defaultFOV) < 0.05f)
+            cameraObject.Lens.FieldOfView = Mathf.Lerp(cameraObject.Lens.FieldOfView, defaultFOV, speed * Time.deltaTime);
+            if (Mathf.Abs(cameraObject.Lens.FieldOfView - defaultFOV) < 0.05f)
             {
-                cameraObject.fieldOfView = defaultFOV;
+                cameraObject.Lens.FieldOfView = defaultFOV;
             }
         }
     }

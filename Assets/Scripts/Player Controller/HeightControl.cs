@@ -17,6 +17,8 @@ public class HeightControl : MonoBehaviour
 
     [HideInInspector] public Vector3 cameraHolderOffset;
 
+    [HideInInspector] public float sanityHeightDistortion;
+
     private InputAction crouchAction;
 
     private void Start()
@@ -25,6 +27,8 @@ public class HeightControl : MonoBehaviour
 
         normalHeight = characterControllerComponent.height;
         crouchHeight = normalHeight * crouchHeightMultiplier;
+
+        characterControllerComponent.height = normalHeight;
     }
 
     private void Update()
@@ -39,7 +43,6 @@ public class HeightControl : MonoBehaviour
         }
 
         characterControllerComponent.center = Vector3.up * characterControllerComponent.height / 2.0f;
-        
         cameraHolderObject.transform.localPosition = Vector3.up * characterControllerComponent.height * 0.9375f + cameraHolderOffset;
     }
 }

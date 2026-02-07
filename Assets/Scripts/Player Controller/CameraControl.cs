@@ -7,8 +7,8 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private GameObject cameraHolderObject;
 
     [SerializeField] private float sensitivity;
-    [SerializeField] private float acceleration;
-    [SerializeField] private float drag;
+    public float acceleration;
+    public float drag;
 
     private Vector2 mouseVelocity;
     private Vector2 lookVelocity;
